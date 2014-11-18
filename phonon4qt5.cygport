@@ -1,0 +1,25 @@
+inherit qt5 cmake
+
+NAME="phonon4qt5"
+VERSION=4.8.2
+RELEASE=1
+CATEGORY="Libs"
+SUMMARY="Qt5 multimedia abstraction layer"
+DESCRIPTION="Qt5 multimedia engine with support for multiple backends"
+SRC_URI="mirror://kde/stable/phonon/${VERSION}/phonon-${VERSION}.tar.xz"
+SRC_DIR="phonon-${VERSION}"
+PATCH_URI="4.6.0-cxxflags.patch"
+
+PKG_NAMES="lib${NAME}_4 lib${NAME}-devel"
+libphonon4qt5_4_SUMMARY="${SUMMARY} (runtime)"
+libphonon4qt5_4_CONTENTS="usr/bin/*-4.dll usr/share/doc/"
+libphonon4qt5_devel_SUMMARY="${SUMMARY} (development)"
+libphonon4qt5_devel_CONTENTS="usr/include/ usr/lib/cmake/ usr/lib/lib* usr/lib/pkgconfig/ usr/lib/qt5/
+                          usr/share/dbus-1/ usr/share/${NAME}/buildsystem/"
+
+CYGCMAKE_ARGS="
+	-DQT_LIBRARY_DIR=/usr/lib
+	-DPHONON_BUILD_PHONON4QT5=ON
+	-DPHONON_INSTALL_QT_EXTENSIONS_INTO_SYSTEM_QT=ON
+	-D__KDE_HAVE_GCC_VISIBILITY=OFF
+"
